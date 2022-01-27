@@ -36,7 +36,7 @@ public class NextDate {
 
     public void generateNewDay() {
 
-        if (isValidInputDay() && isValidInputMonth() && isValidInputYear()) {
+        if ((isValidInputDay() && isValidInputMonth() && isValidInputYear()) && isExistentDate()) {
 
             if (isLastMonth()) {
                 this.year++;
@@ -58,11 +58,15 @@ public class NextDate {
     private boolean isValidInputMonth() { return (1 <= month && month <= 12); }
     private boolean isValidInputYear() { return (1812 <= year && year <= 2012); }
 
-    // Secondaire condities ter voorkoming van niet bestaande datums
     private boolean isLastMonth() {
         return this.month == 12 && this.day == 31;
     }
     private boolean isLastDayOfTheMonth() {
         return ((month % 2 != 0 || month % 2 == 0) && (day == 31 || day == 30)) || (month % 2 == 0 && (day == 30 || day == 28));
+    }
+    // Secondaire condities ter voorkoming van niet bestaande datums
+    // Invoer: day = 31; month = 8
+    private boolean isExistentDate() {
+        return !(((month % 2 != 0 || (month == 8 || month == 10 || month == 12)) && day > 31) || (((month % 2 == 0 || (month == 9 || month == 11)) && day > 30) || (month == 2 && day > 28)));
     }
 }
