@@ -5,7 +5,8 @@ public class NextDate {
     private int day;
     private int month;
     private int year;
-    private HashMap<Integer, String> monthDictionary = new HashMap<Integer, String>() {
+    private HashMap<Integer, String> monthDictionary = new HashMap<Integer,
+            String>() {
         {
             put(1, "January");
             put(2, "February");
@@ -36,8 +37,7 @@ public class NextDate {
 
     public void generateNewDay() {
 
-        if ((isValidInputDay() && isValidInputMonth() && isValidInputYear()) && isExistentDate()) {
-
+        if (isValidDate()) {
             if (isLastMonth()) {
                 this.year++;
             }
@@ -47,25 +47,43 @@ public class NextDate {
             } else {
                 this.day++;
             }
-            this.dateAsString = this.monthDictionary.get(this.month) + " " + this.day + ", " + this.year;
+            this.dateAsString = this.monthDictionary.get(this.month) + " " +
+                                this.day + ", " + this.year;
         } else {
             throw new RuntimeException("error");
         }
     }
 
-    // Primaire condities voor het toestaan van invoerwaardes
-    private boolean isValidInputDay() { return (1 <= this.day && this.day <= 31); }
-    private boolean isValidInputMonth() { return (1 <= month && month <= 12); }
-    private boolean isValidInputYear() { return (1812 <= year && year <= 2012); }
-    // Secondaire condities ter voorkoming van niet bestaande datums zoals benoemd in de paper.
-    private boolean isExistentDate() {
-        return !(((month % 2 != 0 || (month == 8 || month == 10 || month == 12)) && day > 31) || ((((month % 2 == 0 && month < 7) || (month == 9 || month == 11)) && day > 30) || (month == 2 && day > 28)));
+    // Condities voor het toestaan van valide datums
+    private boolean isValidDate() {
+        return isValidInputDay() && isValidInputMonth() &&
+                isValidInputYear() && isExistentDate();
     }
+    private boolean isValidInputDay() {
+        return (1 <= this.day && this.day <= 31);
+    }
+    private boolean isValidInputMonth() {
+        return (1 <= month && month <= 12);
+    }
+    private boolean isValidInputYear() {
+        return (1812 <= year && year <= 2012);
+    }
+    private boolean isExistentDate() {
+        return !(((month % 2 != 0 ||
+                (month == 8 || month == 10 || month == 12)) && day > 31) ||
+                ((((month % 2 == 0 && month < 7) ||
+                        (month == 9 || month == 11)) && day > 30) ||
+                        (month == 2 && day > 28)));
+    }
+    // Condities voor het veranderen van jaar en maand.
     private boolean isLastMonth() {
         return this.month == 12 && this.day == 31;
     }
     private boolean isLastDayOfTheMonth() {
         // Invoer: day = 30; month = 12;
-        return ((((month % 2 != 0 && day == 31) || (month % 2 == 0 && day == 30)) && month <= 7) || (((month % 2 == 0 && day == 31) || (month % 2 != 0 && day == 30)) && month > 7));
+        return ((((month % 2 != 0 && day == 31) ||
+                (month % 2 == 0 && day == 30)) && month <= 7) ||
+                (((month % 2 == 0 && day == 31) ||
+                        (month % 2 != 0 && day == 30)) && month > 7));
     }
 }
