@@ -53,14 +53,16 @@ public class NextDate {
         }
     }
 
-    private boolean isLastMonth() {
-        return this.month == 12 && this.day == 31;
-    }
-
-    private boolean isLastDayOfTheMonth() {
-        return ((month % 2 != 0 || month % 2 == 0) && (day == 31 || day == 30)) || (month % 2 == 0 && (day == 30 || day == 28));
-    }
+    // Primaire condities
     private boolean isValidInputDay() { return (1 <= this.day && this.day <= 31); }
     private boolean isValidInputMonth() { return (1 <= month && month <= 12); }
     private boolean isValidInputYear() { return (1812 <= year && year <= 2012); }
+
+    // Secondaire condities ter voorkoming van niet bestaande datums
+    private boolean isLastMonth() {
+        return this.month == 12 && this.day == 31;
+    }
+    private boolean isLastDayOfTheMonth() {
+        return ((month % 2 != 0 || month % 2 == 0) && (day == 31 || day == 30)) || (month % 2 == 0 && (day == 30 || day == 28));
+    }
 }
