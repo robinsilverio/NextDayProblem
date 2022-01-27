@@ -38,11 +38,10 @@ public class NextDate {
 
         if (isValidInputDay() && isValidInputMonth() && isValidInputYear()) {
 
-            if (this.month == 12 && this.day == 31) {
+            if (isLastMonth()) {
                 this.year++;
             }
-            // Invoer: day = 30; month = 9
-            if (((this.month % 2 != 0 || this.month == 8 || month == 12) && (this.day == 31 || this.day == 30)) || (this.month % 2 == 0 && (this.day == 30 || this.day == 28))) {
+            if (isLastDayOfTheMonth()) {
                 this.month = (this.month != 12) ? this.month + 1 : 1;
                 this.day = 1;
             } else {
@@ -54,6 +53,13 @@ public class NextDate {
         }
     }
 
+    private boolean isLastMonth() {
+        return this.month == 12 && this.day == 31;
+    }
+
+    private boolean isLastDayOfTheMonth() {
+        return ((month % 2 != 0 || month % 2 == 0) && (day == 31 || day == 30)) || (month % 2 == 0 && (day == 30 || day == 28));
+    }
     private boolean isValidInputDay() { return (1 <= this.day && this.day <= 31); }
     private boolean isValidInputMonth() { return (1 <= month && month <= 12); }
     private boolean isValidInputYear() { return (1812 <= year && year <= 2012); }
