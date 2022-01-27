@@ -24,9 +24,9 @@ public class NextDate {
 
     private String dateAsString = "";
 
-    public NextDate(int paramDay, int paramMonth, int paramYear) {
-        this.day = paramDay;
+    public NextDate(int paramMonth, int paramDay, int paramYear) {
         this.month = paramMonth;
+        this.day = paramDay;
         this.year = paramYear;
     }
 
@@ -47,7 +47,7 @@ public class NextDate {
             } else {
                 this.day++;
             }
-            this.dateAsString = this.year + " " + this.monthDictionary.get(this.month) + ", " + this.day;
+            this.dateAsString = this.monthDictionary.get(this.month) + " " + this.day + ", " + this.year;
         } else {
             throw new RuntimeException("error");
         }
