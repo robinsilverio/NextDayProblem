@@ -57,7 +57,7 @@ public class NextDate {
     private boolean isValidInputDay() { return (1 <= this.day && this.day <= 31); }
     private boolean isValidInputMonth() { return (1 <= month && month <= 12); }
     private boolean isValidInputYear() { return (1812 <= year && year <= 2012); }
-    // Secondaire condities ter voorkoming van niet bestaande datums
+    // Secondaire condities ter voorkoming van niet bestaande datums zoals benoemd in de paper.
     private boolean isExistentDate() {
         return !(((month % 2 != 0 || (month == 8 || month == 10 || month == 12)) && day > 31) || ((((month % 2 == 0 && month < 7) || (month == 9 || month == 11)) && day > 30) || (month == 2 && day > 28)));
     }
@@ -65,6 +65,7 @@ public class NextDate {
         return this.month == 12 && this.day == 31;
     }
     private boolean isLastDayOfTheMonth() {
-        return ((month % 2 != 0 || month % 2 == 0) && (day == 31 || day == 30)) || (month % 2 == 0 && (day == 30 || day == 28));
+        // Invoer: day = 30; month = 12;
+        return ((((month % 2 != 0 && day == 31) || (month % 2 == 0 && day == 30)) && month <= 7) || (((month % 2 == 0 && day == 31) || (month % 2 != 0 && day == 30)) && month > 7));
     }
 }
