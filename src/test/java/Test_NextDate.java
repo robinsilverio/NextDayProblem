@@ -41,9 +41,9 @@ public class Test_NextDate {
                 new NextDate(6, 15, 1812),
         };
         String[] expectedNewDates = new String[] {
-            "June 2, 1912",
-            "January 16, 1912",
-            "June 16, 1812",
+                "June 2, 1912",
+                "January 16, 1912",
+                "June 16, 1812",
         };
         // Act
         String[] actualNextDates = new String[3];

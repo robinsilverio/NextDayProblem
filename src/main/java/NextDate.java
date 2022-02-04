@@ -48,7 +48,7 @@ public class NextDate {
                 this.day++;
             }
             this.dateAsString = this.monthDictionary.get(this.month) + " " +
-                                this.day + ", " + this.year;
+                    this.day + ", " + this.year;
         } else {
             throw new RuntimeException("error");
         }
@@ -60,7 +60,7 @@ public class NextDate {
                 isValidInputYear() && isExistentDate();
     }
     private boolean isValidInputDay() {
-        return (1 <= this.day && this.day <= 31);
+        return (1 <= day && day <= 31);
     }
     private boolean isValidInputMonth() {
         return (1 <= month && month <= 12);
@@ -69,12 +69,18 @@ public class NextDate {
         return (1812 <= year && year <= 2012);
     }
     private boolean isExistentDate() {
-        return !(((month % 2 != 0 ||
-                (month == 8 || month == 10 || month == 12)) && day > 31) ||
-                ((((month % 2 == 0 && month < 7) ||
-                        (month == 9 || month == 11)) && day > 30) ||
-                        (month == 2 && day > 28)));
+        return !(isExceedingDateInFirstSemester() ||
+                isExceedingDateInSecondSemester());
     }
+
+    private boolean isExceedingDateInSecondSemester() {
+        return ((month % 2 == 0 && day > 31) || (month % 2 != 0 && day > 30)) && month > 7;
+    }
+
+    private boolean isExceedingDateInFirstSemester() {
+        return ((month % 2 != 0 && day > 31) || (month % 2 == 0 && (day > 30 || day > 28))) && month < 8;
+    }
+
     // Condities voor het veranderen van jaar en maand.
     private boolean isLastMonth() {
         return this.month == 12 && this.day == 31;
